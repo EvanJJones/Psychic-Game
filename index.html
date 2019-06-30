@@ -26,25 +26,45 @@
     </main>
     <script>
       var gameStarted = false;
-      var words = ["one", "two", "three", "four", "five", "six", "seven"];
-
+      var words = ["test", "word", "three", "four", "five", "six", "seven"];
+      var currentWord = "first";
       document.onkeyup = function(event) {
         var letter = event.key.toLowerCase();
 
         if (gameStarted) {
+          //TODO: check if letter has been guessed before, rest in else
+
+          //check if letter typed is in word
+          for (let i = 0; i < currentWord.length; i++) {
+            console.log(currentWord);
+            if (letter === currentWord.charAt(i)) {
+              var activeLetter = document.getElementById(i);
+              activeLetter.innerText = currentWord.charAt(i) + " ";
+            }
+          }
         } else {
+          // sets the game active, picks a word from the list, and sets the board empty
           gameStarted = true;
-          var wordSelectionNumber = Math.floor(
-            Math.random() * (words.length - 1)
-          );
-          var currentWord = words[wordSelectionNumber];
+          var wordSelectionNumber = Math.floor(Math.random() * words.length);
+          currentWord = words[wordSelectionNumber];
 
           for (let i = 0; i < 7; i++) {
-            var elem = document.getElementById(i);
-            elem.innerText = currentWord.charAt(i) + " ";
+            if (i < currentWord.length) {
+              var elem = document.getElementById(i);
+              elem.innerText = "_ ";
+            } else {
+              var elem = document.getElementById(i);
+              elem.innerText = " ";
+            }
           }
         }
       };
     </script>
   </body>
 </html>
+
+<!-- code for replacing letters
+for (let i = 0; i < 7; i++) {
+    var elem = document.getElementById(i);
+    elem.innerText = currentWord.charAt(i) + " ";
+  } -->
