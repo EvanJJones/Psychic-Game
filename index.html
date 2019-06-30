@@ -11,18 +11,18 @@
     <main>
       <div class="game">
         <h3>Remaining Guesses</h3>
-        <h1 id="remainingMoves">0</h1>
+        <h1 id="remainingMoves">6</h1>
 
         <h2 id="anounce">Press Space to start</h2>
 
         <section id="activeBoard">
-          <span id="0">_ </span>
-          <span id="1">_ </span>
-          <span id="2">_ </span>
-          <span id="3">_ </span>
-          <span id="4">_ </span>
-          <span id="5">_ </span>
-          <span id="6">_ </span>
+          <span id="0"></span>
+          <span id="1"></span>
+          <span id="2"></span>
+          <span id="3"></span>
+          <span id="4"></span>
+          <span id="5"></span>
+          <span id="6"></span>
         </section>
         <section id="usedLetters">
           Nothing guessed yet
@@ -47,10 +47,13 @@
       var currentWord = "start";
       var correctCount = 0;
       var usedLetters = [];
+      var guessesRemaining = 6;
+      var correctGuess = false;
 
       document.onkeyup = function(event) {
         var letter = event.key.toLowerCase();
-        console.log(letter);
+        correctGuess = false;
+
         if (gameStarted) {
           //check if letter has been guessed before anounce if it has
           if (usedLetters.includes(letter)) {
@@ -69,6 +72,9 @@
                 var activeLetter = document.getElementById(i);
                 activeLetter.innerText = currentWord.charAt(i) + " ";
                 correctCount++;
+                correctGuess = true;
+                var anounce = document.getElementById("anounce");
+                anounce.innerText = "Nice guess";
 
                 //win state
                 if (correctCount === currentWord.length) {
@@ -76,6 +82,7 @@
                   correctCount = 0;
                   gameStarted = false;
                   wins++;
+                  guessesRemaining = 6;
                   usedLetters.length = 0;
                   var usedSection = document.getElementById("usedLetters");
                   usedSection.innerText = "Nothing guessed yet";
@@ -83,10 +90,38 @@
                   anounce.innerText = "Press Space to play again";
                   var anounce = document.getElementById("winCount");
                   anounce.innerText = wins;
+                  var anounce = document.getElementById("remainingMoves");
+                  anounce.innerText = guessesRemaining;
                 }
               }
             }
+            //incorrect guesses decrement guesses
+            if (!correctGuess) {
+              guessesRemaining--;
+              var anounce = document.getElementById("remainingMoves");
+              anounce.innerText = guessesRemaining;
+              console.log(guessesRemaining);
+              var anounce = document.getElementById("anounce");
+              anounce.innerText = "Incorrect";
+
+              //lose state
+              if (guessesRemaining === 0) {
+                losses++;
+                var usedSection = document.getElementById("usedLetters");
+                usedSection.innerText = "Nothing guessed yet";
+                var anounce = document.getElementById("anounce");
+                anounce.innerText = "You lost, press space to play again";
+                var anounce = document.getElementById("lossCount");
+                anounce.innerText = losses;
+                gameStarted = false;
+                usedLetters.length = 0;
+                guessesRemaining = 6;
+                var anounce = document.getElementById("remainingMoves");
+                anounce.innerText = guessesRemaining;
+              }
+            }
           }
+          //checks if space is pressed to start the game
         } else if (event.keyCode === 32) {
           // sets the game active, picks a word from the list, and sets the board empty
           var anounce = document.getElementById("anounce");
@@ -95,6 +130,7 @@
           var wordSelectionNumber = Math.floor(Math.random() * words.length);
           currentWord = words[wordSelectionNumber];
 
+          //creates board based on length of picked word
           for (let i = 0; i < 7; i++) {
             if (i < currentWord.length) {
               var elem = document.getElementById(i);
@@ -109,9 +145,3 @@
     </script>
   </body>
 </html>
-
-<!-- code for replacing letters
-for (let i = 0; i < 7; i++) {
-    var elem = document.getElementById(i);
-    elem.innerText = currentWord.charAt(i) + " ";
-  } -->
