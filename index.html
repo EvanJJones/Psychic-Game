@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Word guess Game</title>
+    <link rel="stylesheet" type="text/css" href="reset.css" />
+    <link rel="stylesheet" type="text/css" href="Style.css" />
+  </head>
+
+  <body>
+    <main>
+      <div class="instructions"></div>
+      <div class="game">
+        <h1 id="remainingMoves">0</h1>
+        <section id="activeBoard">
+          <span id="0">_ </span>
+          <span id="1">_ </span>
+          <span id="2">_ </span>
+          <span id="3">_ </span>
+          <span id="4">_ </span>
+          <span id="5">_ </span>
+          <span id="6">_ </span>
+        </section>
+      </div>
+      <div></div>
+    </main>
+    <script>
+      var gameStarted = false;
+      var words = ["one", "two", "three", "four", "five", "six", "seven"];
+
+      document.onkeyup = function(event) {
+        var letter = event.key.toLowerCase();
+
+        if (gameStarted) {
+        } else {
+          gameStarted = true;
+          var wordSelectionNumber = Math.floor(
+            Math.random() * (words.length - 1)
+          );
+          var currentWord = words[wordSelectionNumber];
+
+          for (let i = 0; i < 7; i++) {
+            var elem = document.getElementById(i);
+            elem.innerText = currentWord.charAt(i) + " ";
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

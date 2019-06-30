@@ -1,0 +1,31 @@
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-column-gap: 10px;
+
+  height: 100px;
+}
+
+.instructions {
+  background-color: blue;
+}
+
+.game {
+  background-color: aquamarine;
+}
+
+#remainingMoves {
+  text-align: center;
+  font-size: 4em;
+  margin-bottom: 1em;
+}
+
+#activeBoard {
+  text-align: center;
+  font-size: 5em;
+}
+
+#usedLetters {
+  text-align: center;
+  font-size: 2em;
+}
