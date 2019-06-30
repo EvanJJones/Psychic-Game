@@ -9,9 +9,12 @@
 
   <body>
     <main>
-      <div class="instructions"></div>
       <div class="game">
+        <h3>Remaining Guesses</h3>
         <h1 id="remainingMoves">0</h1>
+
+        <h2 id="anounce">Press Space to start</h2>
+
         <section id="activeBoard">
           <span id="0">_ </span>
           <span id="1">_ </span>
@@ -21,29 +24,73 @@
           <span id="5">_ </span>
           <span id="6">_ </span>
         </section>
+        <section id="usedLetters">
+          Nothing guessed yet
+        </section>
+        <div id="scoreboard">
+          <div id="wins">
+            <h3>Wins</h3>
+            <h1 id="winCount">0</h1>
+          </div>
+          <div id="losses">
+            <h3>Losses</h3>
+            <h1 id="lossCount">0</h1>
+          </div>
+        </div>
       </div>
-      <div></div>
     </main>
     <script>
       var gameStarted = false;
+      var wins = 0;
+      var losses = 0;
       var words = ["test", "word", "three", "four", "five", "six", "seven"];
-      var currentWord = "first";
+      var currentWord = "start";
+      var correctCount = 0;
+      var usedLetters = [];
+
       document.onkeyup = function(event) {
         var letter = event.key.toLowerCase();
-
+        console.log(letter);
         if (gameStarted) {
-          //TODO: check if letter has been guessed before, rest in else
+          //check if letter has been guessed before anounce if it has
+          if (usedLetters.includes(letter)) {
+            var anounce = document.getElementById("anounce");
+            anounce.innerText = "You already guessed that";
+          } else {
+            //add letter pressed to used letter array
+            usedLetters.push(letter);
+            var usedSection = document.getElementById("usedLetters");
+            usedSection.innerText = usedLetters;
 
-          //check if letter typed is in word
-          for (let i = 0; i < currentWord.length; i++) {
-            console.log(currentWord);
-            if (letter === currentWord.charAt(i)) {
-              var activeLetter = document.getElementById(i);
-              activeLetter.innerText = currentWord.charAt(i) + " ";
+            //check if letter typed is in word and replace underscore if correct
+            for (let i = 0; i < currentWord.length; i++) {
+              console.log(currentWord);
+              if (letter === currentWord.charAt(i)) {
+                var activeLetter = document.getElementById(i);
+                activeLetter.innerText = currentWord.charAt(i) + " ";
+                correctCount++;
+
+                //win state
+                if (correctCount === currentWord.length) {
+                  console.log("you win");
+                  correctCount = 0;
+                  gameStarted = false;
+                  wins++;
+                  usedLetters.length = 0;
+                  var usedSection = document.getElementById("usedLetters");
+                  usedSection.innerText = "Nothing guessed yet";
+                  var anounce = document.getElementById("anounce");
+                  anounce.innerText = "Press Space to play again";
+                  var anounce = document.getElementById("winCount");
+                  anounce.innerText = wins;
+                }
+              }
             }
           }
-        } else {
+        } else if (event.keyCode === 32) {
           // sets the game active, picks a word from the list, and sets the board empty
+          var anounce = document.getElementById("anounce");
+          anounce.innerText = "Press a letter to guess";
           gameStarted = true;
           var wordSelectionNumber = Math.floor(Math.random() * words.length);
           currentWord = words[wordSelectionNumber];

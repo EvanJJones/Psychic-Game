@@ -1,9 +1,5 @@
 main {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-column-gap: 10px;
-
-  height: 100px;
+  text-align: center;
 }
 
 .instructions {
@@ -14,18 +10,47 @@ main {
   background-color: aquamarine;
 }
 
+h1 {
+  font-size: 3em;
+}
+
+h3 {
+  font-size: 0.75em;
+}
+
+#anounce {
+  font-size: 2em;
+}
+
 #remainingMoves {
-  text-align: center;
   font-size: 4em;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 
 #activeBoard {
-  text-align: center;
   font-size: 5em;
 }
 
 #usedLetters {
-  text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
+  margin: 2em;
+}
+
+#scoreboard {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+#wins {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+#losses {
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
 }
