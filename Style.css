@@ -16,10 +16,12 @@ h1 {
 
 h3 {
   font-size: 0.75em;
+  padding-top: 1em;
 }
 
 #anounce {
   font-size: 2em;
+  margin-bottom: 2em;
 }
 
 #remainingMoves {
@@ -34,6 +36,7 @@ h3 {
 #usedLetters {
   font-size: 1.5em;
   margin: 2em;
+  letter-spacing: 3px;
 }
 
 #scoreboard {

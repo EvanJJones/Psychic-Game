@@ -16,11 +16,11 @@
         <h2 id="anounce">Press Space to start</h2>
 
         <section id="activeBoard">
-          <span id="0"></span>
-          <span id="1"></span>
-          <span id="2"></span>
-          <span id="3"></span>
-          <span id="4"></span>
+          <span id="0">S</span>
+          <span id="1">P</span>
+          <span id="2">A</span>
+          <span id="3">C</span>
+          <span id="4">E</span>
           <span id="5"></span>
           <span id="6"></span>
         </section>
@@ -43,89 +43,127 @@
       var gameStarted = false;
       var wins = 0;
       var losses = 0;
-      var words = ["test", "word", "three", "four", "five", "six", "seven"];
+      var words = [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "eleven",
+        "twelve"
+      ];
+      var alphabet = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z"
+      ];
       var currentWord = "start";
       var correctCount = 0;
       var usedLetters = [];
+
       var guessesRemaining = 6;
       var correctGuess = false;
+
+      //resets elements to the start state except wins and losses
+      function reset() {
+        guessesRemaining = 6;
+        usedLetters.length = 0;
+        var usedSection = document.getElementById("usedLetters");
+        usedSection.innerText = "Nothing guessed yet";
+        var anounce = document.getElementById("anounce");
+        anounce.innerText = "Press Space to play again";
+        var anounce = document.getElementById("winCount");
+        anounce.innerText = wins;
+        var anounce = document.getElementById("remainingMoves");
+        anounce.innerText = guessesRemaining;
+        var anounce = document.getElementById("lossCount");
+        anounce.innerText = losses;
+      }
+
+      //pass two string first being element id second being you want to anounce
+      function anouncer(tag, text) {
+        let element = document.getElementById(tag);
+        element.innerText = text;
+      }
 
       document.onkeyup = function(event) {
         var letter = event.key.toLowerCase();
         correctGuess = false;
+        if (alphabet.includes(letter)) {
+          if (gameStarted) {
+            //check if letter has been guessed before anounce if it has
+            if (usedLetters.includes(letter)) {
+              anouncer("anounce", "You already guessed that");
+            } else {
+              //add letter pressed to used letter array
+              usedLetters.push(letter);
+              anouncer("usedLetters", usedLetters.join(" "));
 
-        if (gameStarted) {
-          //check if letter has been guessed before anounce if it has
-          if (usedLetters.includes(letter)) {
-            var anounce = document.getElementById("anounce");
-            anounce.innerText = "You already guessed that";
-          } else {
-            //add letter pressed to used letter array
-            usedLetters.push(letter);
-            var usedSection = document.getElementById("usedLetters");
-            usedSection.innerText = usedLetters;
-
-            //check if letter typed is in word and replace underscore if correct
-            for (let i = 0; i < currentWord.length; i++) {
-              console.log(currentWord);
-              if (letter === currentWord.charAt(i)) {
-                var activeLetter = document.getElementById(i);
-                activeLetter.innerText = currentWord.charAt(i) + " ";
-                correctCount++;
-                correctGuess = true;
-                var anounce = document.getElementById("anounce");
-                anounce.innerText = "Nice guess";
-
-                //win state
-                if (correctCount === currentWord.length) {
-                  console.log("you win");
-                  correctCount = 0;
-                  gameStarted = false;
-                  wins++;
-                  guessesRemaining = 6;
-                  usedLetters.length = 0;
-                  var usedSection = document.getElementById("usedLetters");
-                  usedSection.innerText = "Nothing guessed yet";
-                  var anounce = document.getElementById("anounce");
-                  anounce.innerText = "Press Space to play again";
-                  var anounce = document.getElementById("winCount");
-                  anounce.innerText = wins;
-                  var anounce = document.getElementById("remainingMoves");
-                  anounce.innerText = guessesRemaining;
+              //check if letter typed is in word and replace underscore if correct
+              for (let i = 0; i < currentWord.length; i++) {
+                console.log(currentWord);
+                if (letter === currentWord.charAt(i)) {
+                  anouncer(i, currentWord.charAt(i) + " ");
+                  correctCount++;
+                  correctGuess = true;
+                  anouncer("anounce", "Nice guess");
+                  //win state
+                  if (correctCount === currentWord.length) {
+                    console.log("you win");
+                    correctCount = 0;
+                    gameStarted = false;
+                    wins++;
+                    reset();
+                  }
                 }
               }
-            }
-            //incorrect guesses decrement guesses
-            if (!correctGuess) {
-              guessesRemaining--;
-              var anounce = document.getElementById("remainingMoves");
-              anounce.innerText = guessesRemaining;
-              console.log(guessesRemaining);
-              var anounce = document.getElementById("anounce");
-              anounce.innerText = "Incorrect";
+              //incorrect guesses decrement guesses
+              if (!correctGuess) {
+                guessesRemaining--;
+                anouncer("remainingMoves", guessesRemaining);
+                console.log(guessesRemaining);
+                anouncer("anounce", "Incorrect");
 
-              //lose state
-              if (guessesRemaining === 0) {
-                losses++;
-                var usedSection = document.getElementById("usedLetters");
-                usedSection.innerText = "Nothing guessed yet";
-                var anounce = document.getElementById("anounce");
-                anounce.innerText = "You lost, press space to play again";
-                var anounce = document.getElementById("lossCount");
-                anounce.innerText = losses;
-                gameStarted = false;
-                usedLetters.length = 0;
-                guessesRemaining = 6;
-                var anounce = document.getElementById("remainingMoves");
-                anounce.innerText = guessesRemaining;
+                //lose state
+                if (guessesRemaining === 0) {
+                  losses++;
+                  reset();
+                }
               }
             }
           }
           //checks if space is pressed to start the game
         } else if (event.keyCode === 32) {
           // sets the game active, picks a word from the list, and sets the board empty
-          var anounce = document.getElementById("anounce");
-          anounce.innerText = "Press a letter to guess";
+          anouncer("anounce", "Press a letter to guess");
           gameStarted = true;
           var wordSelectionNumber = Math.floor(Math.random() * words.length);
           currentWord = words[wordSelectionNumber];
