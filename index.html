@@ -10,9 +10,12 @@
   <body>
     <main>
       <div class="game">
-        <h3>Remaining Guesses</h3>
-        <h1 id="remainingMoves">6</h1>
-
+        <!-- <div class="spacer"></div> -->
+        <div id="remainingSection">
+          <h3>Remaining Guesses</h3>
+          <h1 id="remainingMoves">6</h1>
+        </div>
+        <div class="spacer"></div>
         <h2 id="anounce">Press Space to start</h2>
 
         <section id="activeBoard">
@@ -27,6 +30,7 @@
         <section id="usedLetters">
           Nothing guessed yet
         </section>
+        <div class="spacer"></div>
         <div id="scoreboard">
           <div id="wins">
             <h3>Wins</h3>
@@ -117,51 +121,50 @@
       document.onkeyup = function(event) {
         var letter = event.key.toLowerCase();
         correctGuess = false;
-        if (alphabet.includes(letter)) {
-          if (gameStarted) {
-            //check if letter has been guessed before anounce if it has
-            if (usedLetters.includes(letter)) {
-              anouncer("anounce", "You already guessed that");
-            } else {
-              //add letter pressed to used letter array
-              usedLetters.push(letter);
-              anouncer("usedLetters", usedLetters.join(" "));
+        if (alphabet.includes(letter) && gameStarted) {
+          //check if letter has been guessed before anounce if it has
+          if (usedLetters.includes(letter)) {
+            anouncer("anounce", "You already guessed that");
+          } else {
+            //add letter pressed to used letter array
+            usedLetters.push(letter);
+            anouncer("usedLetters", usedLetters.join(" "));
 
-              //check if letter typed is in word and replace underscore if correct
-              for (let i = 0; i < currentWord.length; i++) {
-                console.log(currentWord);
-                if (letter === currentWord.charAt(i)) {
-                  anouncer(i, currentWord.charAt(i) + " ");
-                  correctCount++;
-                  correctGuess = true;
-                  anouncer("anounce", "Nice guess");
-                  //win state
-                  if (correctCount === currentWord.length) {
-                    console.log("you win");
-                    correctCount = 0;
-                    gameStarted = false;
-                    wins++;
-                    reset();
-                  }
-                }
-              }
-              //incorrect guesses decrement guesses
-              if (!correctGuess) {
-                guessesRemaining--;
-                anouncer("remainingMoves", guessesRemaining);
-                console.log(guessesRemaining);
-                anouncer("anounce", "Incorrect");
+            //check if letter typed is in word and replace underscore if correct
+            for (let i = 0; i < currentWord.length; i++) {
+              console.log(currentWord);
+              if (letter === currentWord.charAt(i)) {
+                anouncer(i, currentWord.charAt(i) + " ");
+                correctCount++;
+                correctGuess = true;
+                anouncer("anounce", "Nice guess");
 
-                //lose state
-                if (guessesRemaining === 0) {
-                  losses++;
+                //win state
+                if (correctCount === currentWord.length) {
+                  console.log("you win");
+                  correctCount = 0;
+                  gameStarted = false;
+                  wins++;
                   reset();
                 }
               }
             }
+            //incorrect guesses decrement guesses
+            if (!correctGuess) {
+              guessesRemaining--;
+              anouncer("remainingMoves", guessesRemaining);
+              console.log(guessesRemaining);
+              anouncer("anounce", "Incorrect");
+
+              //lose state
+              if (guessesRemaining === 0) {
+                losses++;
+                reset();
+              }
+            }
           }
           //checks if space is pressed to start the game
-        } else if (event.keyCode === 32) {
+        } else if (event.keyCode === 32 && !gameStarted) {
           // sets the game active, picks a word from the list, and sets the board empty
           anouncer("anounce", "Press a letter to guess");
           gameStarted = true;
