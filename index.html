@@ -3,17 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <title>Word guess Game</title>
-    <link rel="stylesheet" type="text/css" href="reset.css" />
-    <link rel="stylesheet" type="text/css" href="Style.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/Style.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Slackey|Roboto|Merriweather&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
     <main>
       <div class="game">
-        <!-- <div class="spacer"></div> -->
-        <div id="remainingSection">
-          <h3>Remaining Guesses</h3>
-          <h1 id="remainingMoves">6</h1>
+        <div class="spacer"></div>
+        <div id="scoreboard">
+          <div id="wins">
+            <h3>Wins</h3>
+            <h1 id="winCount">0</h1>
+          </div>
+          <div id="remainingMovesSection">
+            <h3>Guesses Remaining</h3>
+            <h1 id="remainingMoves">6</h1>
+          </div>
+          <div id="losses">
+            <h3>Losses</h3>
+            <h1 id="lossCount">0</h1>
+          </div>
         </div>
         <div class="spacer"></div>
         <h2 id="anounce">Press Space to start</h2>
@@ -27,162 +42,9 @@
           <span id="5"></span>
           <span id="6"></span>
         </section>
-        <section id="usedLetters">
-          Nothing guessed yet
-        </section>
-        <div class="spacer"></div>
-        <div id="scoreboard">
-          <div id="wins">
-            <h3>Wins</h3>
-            <h1 id="winCount">0</h1>
-          </div>
-          <div id="losses">
-            <h3>Losses</h3>
-            <h1 id="lossCount">0</h1>
-          </div>
-        </div>
+        <div id="usedLetters"></div>
       </div>
     </main>
-    <script>
-      var gameStarted = false;
-      var wins = 0;
-      var losses = 0;
-      var words = [
-        "one",
-        "two",
-        "three",
-        "four",
-        "five",
-        "six",
-        "seven",
-        "eight",
-        "nine",
-        "ten",
-        "eleven",
-        "twelve"
-      ];
-      var alphabet = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "g",
-        "h",
-        "i",
-        "j",
-        "k",
-        "l",
-        "m",
-        "n",
-        "o",
-        "p",
-        "q",
-        "r",
-        "s",
-        "t",
-        "u",
-        "v",
-        "w",
-        "x",
-        "y",
-        "z"
-      ];
-      var currentWord = "start";
-      var correctCount = 0;
-      var usedLetters = [];
-
-      var guessesRemaining = 6;
-      var correctGuess = false;
-
-      //resets elements to the start state except wins and losses
-      function reset() {
-        guessesRemaining = 6;
-        usedLetters.length = 0;
-        var usedSection = document.getElementById("usedLetters");
-        usedSection.innerText = "Nothing guessed yet";
-        var anounce = document.getElementById("anounce");
-        anounce.innerText = "Press Space to play again";
-        var anounce = document.getElementById("winCount");
-        anounce.innerText = wins;
-        var anounce = document.getElementById("remainingMoves");
-        anounce.innerText = guessesRemaining;
-        var anounce = document.getElementById("lossCount");
-        anounce.innerText = losses;
-      }
-
-      //pass two string first being element id second being you want to anounce
-      function anouncer(tag, text) {
-        let element = document.getElementById(tag);
-        element.innerText = text;
-      }
-
-      document.onkeyup = function(event) {
-        var letter = event.key.toLowerCase();
-        correctGuess = false;
-        if (alphabet.includes(letter) && gameStarted) {
-          //check if letter has been guessed before anounce if it has
-          if (usedLetters.includes(letter)) {
-            anouncer("anounce", "You already guessed that");
-          } else {
-            //add letter pressed to used letter array
-            usedLetters.push(letter);
-            anouncer("usedLetters", usedLetters.join(" "));
-
-            //check if letter typed is in word and replace underscore if correct
-            for (let i = 0; i < currentWord.length; i++) {
-              console.log(currentWord);
-              if (letter === currentWord.charAt(i)) {
-                anouncer(i, currentWord.charAt(i) + " ");
-                correctCount++;
-                correctGuess = true;
-                anouncer("anounce", "Nice guess");
-
-                //win state
-                if (correctCount === currentWord.length) {
-                  console.log("you win");
-                  correctCount = 0;
-                  gameStarted = false;
-                  wins++;
-                  reset();
-                }
-              }
-            }
-            //incorrect guesses decrement guesses
-            if (!correctGuess) {
-              guessesRemaining--;
-              anouncer("remainingMoves", guessesRemaining);
-              console.log(guessesRemaining);
-              anouncer("anounce", "Incorrect");
-
-              //lose state
-              if (guessesRemaining === 0) {
-                losses++;
-                reset();
-              }
-            }
-          }
-          //checks if space is pressed to start the game
-        } else if (event.keyCode === 32 && !gameStarted) {
-          // sets the game active, picks a word from the list, and sets the board empty
-          anouncer("anounce", "Press a letter to guess");
-          gameStarted = true;
-          var wordSelectionNumber = Math.floor(Math.random() * words.length);
-          currentWord = words[wordSelectionNumber];
-
-          //creates board based on length of picked word
-          for (let i = 0; i < 7; i++) {
-            if (i < currentWord.length) {
-              var elem = document.getElementById(i);
-              elem.innerText = "_ ";
-            } else {
-              var elem = document.getElementById(i);
-              elem.innerText = " ";
-            }
-          }
-        }
-      };
-    </script>
+    <script src="javascript/game.js"></script>
   </body>
 </html>
