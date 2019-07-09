@@ -1,19 +1,16 @@
 body {
-  background-color: #4dd0e1;
-}
-main {
-  text-align: center;
-  background-color: #4dd0e1;
-  margin: auto;
+  background-color: #5abd4d;
 }
 
-.instructions {
-  background-color: blue;
+main {
+  text-align: center;
+  margin: auto;
 }
 
 h3 {
   font-size: 0.75em;
 }
+
 .spacer {
   background-color: #006978;
   height: 0.5em;
@@ -28,6 +25,11 @@ h3 {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  background-image: url("../assets/RemainingMovesBack.png");
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  padding-top: 2rem;
 }
 
 #anounce {
@@ -64,20 +66,31 @@ h3 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #0097a7;
+  /* background-color: #0097a7; */
   font-family: "Merriweather", serif;
+  margin-bottom: 3rem;
 }
 
 #wins {
   display: flex;
   flex-direction: column;
   margin: 0.5rem 1rem 0 1rem;
+  background-image: url("../assets/TopLeftNew.png");
+  width: 150px;
+  height: 150px;
+  padding-top: 1rem;
+  background-repeat: no-repeat;
 }
 
 #losses {
   display: flex;
   flex-direction: column;
   margin: 0.5rem 1rem 0 1rem;
+  background-image: url("../assets/TopRightNew.png");
+  width: 150px;
+  height: 150px;
+  padding-top: 1rem;
+  background-repeat: no-repeat;
 }
 
 #remainingMoves {
@@ -87,10 +100,10 @@ h3 {
 
 #lossCount {
   font-size: 6em;
-  font-family: "Slackey", cursive;
+  font-family: "Roboto", sans-serif;
 }
 
 #winCount {
   font-size: 6em;
-  font-family: "Slackey", cursive;
+  font-family: "Roboto", sans-serif;
 }

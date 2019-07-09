@@ -83,9 +83,9 @@ document.onkeyup = function(event) {
       usedLetters.push(letter);
       // anouncer("usedLetters", usedLetters.join(" "));
 
-      let randMarginBottom = Math.floor(Math.random() * 8 + 1) + "vw";
+      let randMarginBottom = Math.random() * 8 + 1 + "vw";
 
-      let randMarginLeft = Math.floor(Math.random() * 3 + 2) + "vw";
+      let randMarginLeft = Math.random() * 3 + 2 + "vw";
       let newDiv = document.createElement("div");
       document.getElementById("usedLetters").appendChild(newDiv);
       newDiv.style.marginBottom = randMarginBottom;
