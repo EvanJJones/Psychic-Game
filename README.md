@@ -1,5 +1,5 @@
 # Word guessing game
-## description
+## Description
 simple hangman style game. It picks a word for you to guess and you guess letters by pressing keys on the keyboard. I used some random number generation to make it visually a little more interesting. 
 
 ## Tech
