@@ -11,7 +11,7 @@ Press space to start the game, then press keys on your keyboard to try and guess
 ## Images
 
 ![Screenshot](./Screenshot1.png)
-![Screenshot](./Screenshot2.PNG)
+![Screenshot](./Screenshot2.png)
 
 ## Author
 
