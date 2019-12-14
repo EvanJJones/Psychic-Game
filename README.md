@@ -2,7 +2,7 @@
 
 ## Purpose
 
-THis was made for me to learn about HTML, CSS and Javascript. I also tried to add some randomness into the visual style to make it more interesting.
+This is hangman style game where you guess letters to try and figure out a hidden word. This was made for me to learn about HTML, CSS and Javascript. I also tried to add some randomness into the visual style to make it more interesting.
 
 ## Instructions
 
