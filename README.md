@@ -8,6 +8,9 @@ This is hangman style game where you guess letters to try and figure out a hidde
 
 Press space to start the game, then press keys on your keyboard to try and guess the hidden word. Every time you press a key it will either reveal a letter in the word or be added to the used letters section. You will lose if you can't guess the word without making six mistakes.
 
+## Link to Deployed Version
+https://evanjjones.github.io/Word-Guess-Game/
+
 ## Images
 
 ![Screenshot](./Screenshot1.png)
@@ -15,7 +18,7 @@ Press space to start the game, then press keys on your keyboard to try and guess
 
 ## Author
 
-Evan Jones
+Evan Jones: https://github.com/EvanJJones
 
 ## Technologies Used
 
@@ -23,4 +26,4 @@ HTMl, CSS, and Javascript
 
 ## Contact
 
-evanjones@fastmail.net
+evan@evanjjones.com
