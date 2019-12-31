@@ -14,7 +14,6 @@ https://evanjjones.github.io/Word-Guess-Game/
 ## Images
 
 ![Screenshot](./Screenshot1.png)
-![Screenshot](./Screenshot2.png)
 
 ## Author
 
@@ -22,7 +21,7 @@ Evan Jones: https://github.com/EvanJJones
 
 ## Technologies Used
 
-HTMl, CSS, and Javascript
+Node.js, Express, Bootstrap, MongoDB, HTML, CSS, Javascript
 
 ## Contact
 
